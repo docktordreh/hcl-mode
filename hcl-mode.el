@@ -42,6 +42,11 @@
 (defconst hcl--block-regexp
   "^\\s-*[^{]+{")
 
+(defface hcl-string-interpolation-face
+  '((t :inherit font-lock-string-face))
+  "Face for ${...} expressions inside strings."
+  :group 'hcl)
+
 ;; String Interpolation(This regexp is taken from ruby-mode)
 (defconst hcl--string-interpolation-regexp
   "\\${[^}\n\\\\]*\\(?:\\\\.[^}\n\\\\]*\\)*}")
@@ -64,7 +69,7 @@
   `((,hcl--assignment-regexp 1 font-lock-variable-name-face)
     (,hcl--boolean-regexp . font-lock-constant-face)
     (,hcl--map-regexp 1 font-lock-type-face)
-    (hcl--string-interpolation-matcher 0 font-lock-variable-name-face t)))
+    (hcl--string-interpolation-matcher 0 'hcl-string-interpolation-face t)))
 
 (defsubst hcl--paren-level ()
   (car (syntax-ppss)))
